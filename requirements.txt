@@ -1,0 +1,8 @@
+aiohttp
+discord.py
+google-api-python-client
+lxml
+motor
+pygsheets
+PyOpenSSL
+uvloop
