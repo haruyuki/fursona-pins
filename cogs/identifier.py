@@ -1,4 +1,5 @@
 import json
+import math
 
 import aiohttp
 import discord
@@ -15,20 +16,31 @@ class Identifier(commands.Cog):
         self.spreadsheet = Constants.google_sheets_api.open_by_key('1bYyZmN_Bm5NGHpRL-ox-5sn5kqsTDLNiLuyrbsEcEbY')  # Link to conversion spreadsheet
         self.worksheet = self.spreadsheet.sheet1
 
+    @staticmethod
+    def get_column(identifier):
+        first = 6
+        multiplier = identifier/100
+        if multiplier.is_integer():
+            multiplier -= 1
+        multiplier = math.floor(multiplier)
+        return first + (3 * multiplier)
+
     @commands.command(aliases=['id'])
     @commands.guild_only()
     async def identifier(self, ctx, identifier: int):
         if identifier in exceptions:
-            try:
-                identifier_cell = self.worksheet.find(str(identifier), matchEntireCell=True)[0]
-            except IndexError:
-                await ctx.send('An unknown error has occured, please contact the bot creator.')
-                return
-
-            pin_name = identifier_cell.neighbour((0, 1)).value
-            pin_owner = identifier_cell.neighbour((0, 2)).value
-            if pin_owner == '':
-                pin_owner = 'No name provided'
+            column = self.get_column(identifier)
+            column_cells = self.worksheet.get_col(column, returnas='cell', include_tailing_empty=False)
+            for cell in column_cells:
+                if cell.value == identifier:
+                    pin_name = cell.neighbour((0, 1)).value
+                    pin_owner = cell.neighbour((0, 2)).value
+                    if pin_owner == '':
+                        pin_owner = 'No name provided'
+                    break
+            else:
+                pin_name = 'Unknown'
+                pin_owner = 'Unknown'
 
             title = f'{pin_name} (#{f"{identifier:03}"})'
             description = f'Owned by: {pin_owner}'
@@ -88,16 +100,18 @@ class Identifier(commands.Cog):
         data = data['data']
         for pin in data:
             if pin['pseudo'] == identifier:
-                try:
-                    identifier_cell = self.worksheet.find(str(identifier), matchEntireCell=True)[0]
-                except IndexError:
-                    await ctx.send('An unknown error has occured, please contact the bot creator.')
-                    return
-
-                pin_name = identifier_cell.neighbour((0, 1)).value
-                pin_owner = identifier_cell.neighbour((0, 2)).value
-                if pin_owner == '':
-                    pin_owner = 'No name provided'
+                column = self.get_column(identifier)
+                column_cells = self.worksheet.get_col(column, returnas='cell', include_tailing_empty=False)
+                for cell in column_cells:
+                    if cell.value == identifier:
+                        pin_name = cell.neighbour((0, 1)).value
+                        pin_owner = cell.neighbour((0, 2)).value
+                        if pin_owner == '':
+                            pin_owner = 'No name provided'
+                        break
+                else:
+                    pin_name = 'Unknown'
+                    pin_owner = 'Unknown'
 
                 title = f'{pin_name} (#{f"{identifier:03}"})'
                 description = f'Owned by: {pin_owner}'
