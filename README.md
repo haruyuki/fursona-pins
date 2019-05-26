@@ -16,7 +16,7 @@ A Discord bot for the [Fursona Pins](https://www.fursonapins.com) Discord.
 | .links        | Display links to various Fursona Pins' sites          | .links                |
 
 ## Usage
-I would prefer if you don't run your own instance of my bot, but rather use the already existing instance. Head to <https://haruyuki.moe/CS-Pound/> and click the button on the top right (or below the title if you're on mobile), to invite the bot to your server.
+I would prefer if you don't run your own instance of my bot, but rather use the already existing instance. Invite the bot to your server via [this link](https://discordapp.com/oauth2/authorize?client_id=499093029026660353&scope=bot&permissions=511040).
 
 ## License
 
