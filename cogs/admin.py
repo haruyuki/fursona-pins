@@ -17,6 +17,12 @@ class Admin(commands.Cog):
         self._last_result = None
         self.sessions = set()
 
+    def is_me():
+        def predicate(ctx):
+            return ctx.message.author.id == Constants.owner_id
+
+        return commands.check(predicate)
+
     @staticmethod
     def cleanup_code(content):
         # remove ```py\n```
@@ -35,7 +41,8 @@ class Admin(commands.Cog):
             return f'```py\n{e.__class__.__name__}: {e}\n```'
         return f'```py\n{e.text}{"^":>{e.offset}}\n{e.__class__.__name__}: {e}```'
 
-    @commands.command()
+    @commands.command(hidden=True)
+    @is_me()
     async def load(self, ctx, *, cog):
         cog = Constants.cogs_directory + '.' + cog
 
@@ -46,7 +53,8 @@ class Admin(commands.Cog):
         else:
             await ctx.message.add_reaction('\u2705')
 
-    @commands.command()
+    @commands.command(hidden=True)
+    @is_me()
     async def unload(self, ctx, *, cog: str):
         cog = Constants.cogs_directory + '.' + cog
 
@@ -57,7 +65,8 @@ class Admin(commands.Cog):
         else:
             await ctx.message.add_reaction('\u2705')
 
-    @commands.command()
+    @commands.command(hidden=True)
+    @is_me()
     async def reload(self, ctx, *, cog: str):
         cog = Constants.cogs_directory + '.' + cog
 
@@ -69,6 +78,7 @@ class Admin(commands.Cog):
             await ctx.message.add_reaction('\u2705')
 
     @commands.command(hidden=True, name='eval')
+    @is_me()
     async def _eval(self, ctx, *, body: str):
         env = {
             'bot': self.bot,
@@ -114,6 +124,7 @@ class Admin(commands.Cog):
                 await ctx.send(f'```py\n{value}{ret}\n```')
 
     @commands.command(hidden=True)
+    @is_me()
     async def repl(self, ctx):
         variables = {
             'ctx': ctx,
