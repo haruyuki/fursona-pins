@@ -4,7 +4,7 @@
 [![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/github/license/haruyuki/CS-Pound.svg)](https://github.com/haruyuki/CS-Pound/blob/master/LICENSE)
 
-**This bot is in no way affiliated with Fursona Pins, this is simply a small project of mine**
+**__This bot is in no way affiliated with Fursona Pins, this is simply a small project of mine__**
 
 A Discord bot for the [Fursona Pins](https://www.fursonapins.com) Discord.
 
