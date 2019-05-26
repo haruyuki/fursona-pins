@@ -27,6 +27,8 @@ class Identifier(commands.Cog):
 
             pin_name = identifier_cell.neighbour((0, 1)).value
             pin_owner = identifier_cell.neighbour((0, 2)).value
+            if pin_owner == '':
+                pin_owner = 'No name provided'
 
             title = f'{pin_name} (#{f"{identifier:03}"})'
             description = f'Owned by: {pin_owner}'
@@ -94,6 +96,8 @@ class Identifier(commands.Cog):
 
                 pin_name = identifier_cell.neighbour((0, 1)).value
                 pin_owner = identifier_cell.neighbour((0, 2)).value
+                if pin_owner == '':
+                    pin_owner = 'No name provided'
 
                 title = f'{pin_name} (#{f"{identifier:03}"})'
                 description = f'Owned by: {pin_owner}'
