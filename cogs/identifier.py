@@ -32,7 +32,7 @@ class Identifier(commands.Cog):
             column = self.get_column(identifier)
             column_cells = self.worksheet.get_col(column, returnas='cell', include_tailing_empty=False)
             for cell in column_cells:
-                if cell.value == identifier:
+                if cell.value == str(identifier):
                     pin_name = cell.neighbour((0, 1)).value
                     pin_owner = cell.neighbour((0, 2)).value
                     if pin_owner == '':
@@ -103,7 +103,7 @@ class Identifier(commands.Cog):
                 column = self.get_column(identifier)
                 column_cells = self.worksheet.get_col(column, returnas='cell', include_tailing_empty=False)
                 for cell in column_cells:
-                    if cell.value == identifier:
+                    if cell.value == str(identifier):
                         pin_name = cell.neighbour((0, 1)).value
                         pin_owner = cell.neighbour((0, 2)).value
                         if pin_owner == '':
