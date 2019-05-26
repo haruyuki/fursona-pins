@@ -23,7 +23,7 @@ class Identifier(commands.Cog):
         if multiplier.is_integer():
             multiplier -= 1
         multiplier = math.floor(multiplier)
-        return first + (3 * multiplier)
+        return first + (4 * multiplier)
 
     @commands.command(aliases=['id'])
     @commands.guild_only()
