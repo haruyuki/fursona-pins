@@ -18,6 +18,7 @@ class About(commands.Cog):
         unique_user_count = len(set(self.bot.get_all_members()))
 
         description = f'''\
+        __**This bot is in no way affiliated with Fursona Pins.**__
         **Created by:** `Haru#5616`
         **Running on:** `{guild_count} guilds`
         **Serving:** `{user_count} users ({unique_user_count} unique)`'''
