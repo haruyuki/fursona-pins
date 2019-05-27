@@ -9,7 +9,6 @@ class Help(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    @commands.guild_only()
     async def help(self, ctx):
         embed = discord.Embed(title='Fursona Pins', description='Available commands:', colour=Constants.embed_colour)
         embed.add_field(name='**.about**', value='Display information about the bot', inline=False)
